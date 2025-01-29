@@ -1,6 +1,6 @@
 
 <div class="card shadow mb-4">
-    <form method="get" action="/proveedores">
+    <form method="get" action="/productos">
         <input type="hidden" name="order" value="1">
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">Filtros</h6>
@@ -65,4 +65,41 @@
             </div>
         </div>
     </form>
+
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Productos</h6>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body" id="card_table">
+            <div id="button_container" class="mb-3"></div>
+            <!--<form action="./?sec=formulario" method="post">                   -->
+            <table id="tabladatos" class="table table-striped">
+                <thead>
+                <tr>
+                    <th><a href="">Codigo</a></th>
+                    <th><a href="">Nombre</a> </th>
+                    <th><a href="">Proovedor</a></th>
+                    <th><a href="">Coste</a></th>
+                    <th><a href="">Categoria</a></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($productos as $producto){?>
+                        <tr>
+                            <td><?php echo $producto['codigo'] ?></td>
+                            <td><?php echo $producto['nombre'] ?></td>
+                            <td><?php echo $producto['nombre_proveedor'] ?></td>
+                            <td><?php echo $producto['coste'] ?></td>
+                            <td><?php echo $producto['nombre_categoria'] ?></td>
+                        </tr>
+
+                    <?php }?>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

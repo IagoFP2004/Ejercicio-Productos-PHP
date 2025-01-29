@@ -28,6 +28,16 @@
               </li>              
             </ul>
           </li>
+
+            <li class="nav-item">
+                <a href="<?php echo $_ENV['host.folder']."productos" ?>" class="nav-link <?php echo $_SERVER['REQUEST_URI'] === $_ENV['host.folder'] . 'inicio' ? 'active' : ''; ?>">
+                    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+                    <p>
+                        <i class="material-icons nav-icon">shopping_cart</i>
+                        Productos
+                    </p>
+                </a>
+            </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

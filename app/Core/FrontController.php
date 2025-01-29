@@ -21,8 +21,6 @@ class FrontController
             'get'
         );
 
-
-
         Route::add(
             '/',
             function () {
