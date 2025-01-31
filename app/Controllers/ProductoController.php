@@ -45,8 +45,25 @@ class ProductoController extends BaseController
         if(!empty($_GET['max_coste'])) {
             $condiciones['max_coste'] = $_GET['max_coste'];
         }
-        $data['productos'] = $productoModel->doFiltros($condiciones);
 
+        $data['order'] = $this->getOrder();
+
+        $_copiaGet = $_GET;
+        unset($_copiaGet['order']);
+        $data['url']=http_build_query($_copiaGet);
+
+        $_copiaGet2 = $_GET;
+        unset($_copiaGet2['pagina']);
+        $data['urlpage']=http_build_query($_copiaGet2);
+
+        $numeroTotalProductos = $productoModel->countResults($condiciones);
+        $numeroDePaginas = $this->numeroElementosPorPagina($numeroTotalProductos);
+        $pagina = $this->getPage($numeroDePaginas);
+
+        $data['pagina'] = $pagina;
+        $data['max_pagina']=  $numeroDePaginas;
+
+        $data['productos'] = $productoModel->doFiltros($condiciones, $data['order']);
 
 
         $this->view->showViews(
@@ -55,5 +72,27 @@ class ProductoController extends BaseController
         );
     }
 
+    public function getOrder(){
+        if (isset($_GET['order'])) {
+            if ($_GET['order'] != 0 && $_GET['order'] <= 5 && $_GET['order'] >= -5) {
+                return (int)$_GET['order'];
+            }
+        }
+        return 1;
+    }
 
+    public function numeroElementosPorPagina($numeroTotalProductos)
+    {
+        return (int)ceil($numeroTotalProductos / $_ENV['productos.pagina']);
+    }
+
+    public function getPage($numeroPaginas)
+    {
+        if(isset($_GET['pagina'])){
+            if($_GET['pagina'] > 0 && $_GET['pagina'] <= $numeroPaginas){
+                return (int) $_GET['pagina'];
+            }
+        }
+        return 1;
+    }
 }
